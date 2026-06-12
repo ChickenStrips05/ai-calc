@@ -1,0 +1,96 @@
+ClrHome
+ClrDraw
+
+0→U
+Get(U)
+If not(U=1)
+Goto E
+
+Disp "Welcome."
+Disp "Press any key to continue"
+Repeat K
+getKey→K
+End
+
+Lbl S
+
+ClrHome
+Get(W)
+If W=1
+Then
+"ESP32 Calc (connected)"→Str4
+Else
+"ESP32 Calc (not connected)"→Str4
+End
+Menu(Str4,"Connect to WiFi",O1,"Disconnect from WiFi",O2,"Ask AI",O3,"Check servers",O4,"Quit",E)
+
+Lbl O1
+Disp "Connecting..."
+0→C
+Send(C)
+Goto S
+
+Lbl O2
+Disp "Disconnecting..."
+1→C
+Send(C)
+Goto S
+
+Lbl O3
+
+ClrHome
+Input "User: ",Str0
+Send(Str0)
+Disp "Waiting..."
+
+Repeat R
+Get(R)
+End
+
+If R=­1
+Then
+Disp "Failed to send or receive message"
+Pause 
+
+Else
+Get(Str1)
+ClrHome
+Disp "AI: "
+Output(2,2,Str1)
+Repeat K
+getKey→K
+End
+
+End
+
+Goto S
+
+Lbl O4
+Get(Str2)
+Get(Str3)
+Disp "Source:",Str2
+Disp "Server:",Str3
+Disp "Press ENTER to refresh"
+
+Repeat K
+getKey→K
+End
+
+If K=105
+Then
+2→C
+Send(C)
+ClrHome
+Goto O4
+Else
+Goto S
+End
+
+If K=
+Lbl E
+ClrHome
+If U=­1
+Disp "Program is not unlocked."
+If U=0
+Disp "ESP32 is not connected."
+Disp "Goodbye."
